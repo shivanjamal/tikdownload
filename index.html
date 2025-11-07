@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TikTok Auto Downloader</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: radial-gradient(circle at top left, #0078ff, #001d3d);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      margin: 0;
+    }
+    h1 { font-size: 22px; margin-bottom: 8px; }
+    p { font-size: 14px; opacity: 0.85; margin-bottom: 25px; }
+    input {
+      width: 85%;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      text-align: center;
+      font-size: 15px;
+      margin-bottom: 18px;
+    }
+    button {
+      background: linear-gradient(135deg, #00e676, #00b0ff);
+      border: none;
+      padding: 14px 25px;
+      border-radius: 10px;
+      font-weight: 700;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    button:hover { background: linear-gradient(135deg, #00c853, #008cff); transform: scale(1.03); }
+  </style>
+</head>
+<body>
+  <h1>🎵 TikTok Auto Downloader</h1>
+  <p>Automatically downloads vt.tiktok.com links</p>
+
+  <input type="text" id="tiktokLink" placeholder="Paste TikTok link (vt.tiktok.com/...)" />
+  <button onclick="getTikTok()">Download</button>
+
+  <script>
+    async function getTikTok() {
+      const link = document.getElementById("tiktokLink").value.trim();
+      if (!link.startsWith("https://vt.tiktok.com/")) {
+        alert("⚠️ Please enter a valid TikTok short link!");
+        return;
+      }
+
+      const apiUrl = `https://tiktok-video-no-watermark2.p.rapidapi.com/?url=${encodeURIComponent(link)}`;
+      const options = {
+        method: "GET",
+        headers: {
+          "x-rapidapi-host": "tiktok-video-no-watermark2.p.rapidapi.com",
+          "x-rapidapi-key": "667f3c6a42mshf470829593814f0p1edcb0jsnc9f30089ef3e"
+        }
+      };
+
+      try {
+        const response = await fetch(apiUrl, options);
+        const data = await response.json();
+
+        if (data.data && data.data.play) {
+          const videoUrl = data.data.play;
+          // گواستنەوە بۆ فایل PHP بۆ داگرتنی ڕاستەقین
+          window.location.href = `download.php?url=${encodeURIComponent(videoUrl)}`;
+        } else {
+          alert("❌ Could not get video link.");
+        }
+      } catch (err) {
+        console.error(err);
+        alert("⚠️ Error fetching TikTok video!");
+      }
+    }
+  </script>
+</body>
+</html>

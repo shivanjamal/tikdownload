@@ -1,0 +1,21 @@
+{
+  "name": "TikTok Video Downloader",
+  "short_name": "TikTokDL",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0050cc",
+  "theme_color": "#0050cc",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://i.ibb.co/hxWqx2ms/IMG-1831.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://i.ibb.co/hxWqx2ms/IMG-1831.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
